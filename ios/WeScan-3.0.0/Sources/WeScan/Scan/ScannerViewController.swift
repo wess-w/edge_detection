@@ -38,7 +38,6 @@ public final class ScannerViewController: UIViewController {
 
     private lazy var cancelButton: UIButton = {
 //        let image = UIImage(systemName: "bolt.fill", named: "back", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-//        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleFlash))
         let button = UIButton()
         button.frame.size.height = 100 ;
         button.setTitle(NSLocalizedString("wescan.scanning.cancel", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Cancel", comment: "The cancel button"), for: .normal)
@@ -170,9 +169,18 @@ public final class ScannerViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-      //  navigationItem.setLeftBarButton(cancelButton, animated: false)
-        //navigationItem.setRightBarButton(autoScanButton, animated: false)
-        let title = NSLocalizedString("wescan.scanning.cin", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Scanner le document", comment: "Scan ypur document")
+        let storage = UserDefaults.init(suiteName:"group.moojup.moojup")
+        var navbarTitle: String = "";
+        if let object = storage?.string(forKey: "data") {
+        
+                print("data is  \(object)")
+                navbarTitle = object ?? "Scanner le document";
+              
+        }else{
+            navbarTitle = "Scanner le document"
+
+        }
+        let title = NSLocalizedString("wescan.scanning.cin", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: navbarTitle, comment: "Scan ypur document")
         navigationItem.title = title
       
     }
